@@ -188,24 +188,11 @@ body {
     </div>
 
     <script>
-        let video = document.getElementById('fail-video');
+let video = document.getElementById('fail-video');
 let nextButton = document.getElementById('next-button');
 let squaresContainer = document.querySelector('.squares-container');
 let questionText = document.querySelector('.question');
 let emojiContainer = document.getElementById('emoji-container');
-
-function createEmoji() {
-    const emoji = document.createElement('div');
-    emoji.classList.add('emoji');
-    emoji.innerHTML = '✔️';
-    emoji.style.left = `${Math.random() * 100}vw`;
-    emoji.style.top = `${Math.random() * 100}vh`;
-    emojiContainer.appendChild(emoji);
-
-    setTimeout(() => {
-        emojiContainer.removeChild(emoji);
-    }, 2000);
-}
 
 function checkAnswer(selectedSquare) {
     if (selectedSquare === 2) {
