@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenda 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto;
+            max-width: 400px;
+        }
+
+        .container.hidden {
+            display: none;
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+        }
+
+        .container input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #555;
+            margin-top: auto;
+        }
+
+        .video-container {
+            display: none;
+            text-align: center;
+            margin: auto;
+            width: 100%;
+            height: calc(100vh - 50px); /* Altura total menos o header e margens */
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .emoji-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+            animation: float 4s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container center" id="formContainer">
+        <h1>Bem-vinda ao desafio de prenda 2024</h1>
+        <br>
+        <h3>Para começar, introduz a nossa data mais importante para ti. Se acertares, avanças para o próximo passo.</h3>
+        <form id="dateForm">
+            <input type="date" id="inputDate" name="inputDate" required>
+            <button type="button" id="submitButton">Avançar</button>
+            <p id="errorMessage" class="error" style="display: none;">Data incorreta. Tenta novamente.</p>
+        </form>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <video id="localVideo" autoplay>
+            <source src="videointro.mp4" type="video/mp4">
+            O teu navegador não suporta a reprodução deste vídeo.
+        </video>
+    </div>
+
+    <div class="footer">Desenvolvido por Pedro - 2024</div>
+
+    <div id="emojiContainer" class="emoji-container"></div>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function () {
+            const inputDate = document.getElementById('inputDate').value;
+            const requiredDate = '2023-01-03'; // Data exata a ser introduzida
+
+            if (inputDate === requiredDate) {
+                document.getElementById('formContainer').classList.add('hidden');
+                const videoContainer = document.getElementById('videoContainer');
+                const localVideo = document.getElementById('localVideo');
+
+                videoContainer.style.display = 'block';
+
+                showEmojis();
+
+                localVideo.onended = () => {
+                    window.location.href = 'intro1desafio.html';
+                };
+            } else {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        function showEmojis() {
+            const emojiContainer = document.getElementById('emojiContainer');
+            const emojis = ['❤️', '💖', '💕', '💞', '💓'];
+
+            for (let i = 0; i < 50; i++) {
+                const emoji = document.createElement('div');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.className = 'emoji';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.animationDelay = Math.random() * 2 + 's';
+                emoji.style.fontSize = Math.random() * 20 + 20 + 'px';
+                emojiContainer.appendChild(emoji);
+
+                setTimeout(() => {
+                    emoji.remove();
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>

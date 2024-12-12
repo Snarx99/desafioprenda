@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-container {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container" id="videoContainer">
+        <video id="introVideo" autoplay controls>
+            <source src="intro1.mp4" type="video/mp4">
+            O seu navegador não suporta a reprodução deste vídeo.
+        </video>
+    </div>
+
+    <script>
+        const introVideo = document.getElementById('introVideo');
+
+        introVideo.onended = () => {
+            window.location.href = 'desafio1.html';
+        };
+    </script>
+</body>
+</html>
