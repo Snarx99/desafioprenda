@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio 3</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    .banner {
+      width: 100%;
+      background-color: #2196F3;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .container {
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 60px;
+    }
+    .question p {
+      font-size: 1.2em;
+      color: #333;
+    }
+    .squares-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .square {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      background-image: url('peru.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .square1 {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      background-image: url('cabidela.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .square2 {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      background-image: url('assado.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .square3 {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      background-image: url('francesinha.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .square:hover {
+      transform: scale(1.1);
+    }
+    .square span, .square1 span, .square2 span, .square3 span {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .fail-video {
+      display: none;
+      margin-top: 20px;
+      max-width: 100%;
+    }
+    .next-button {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+    }
+    .next-button:hover {
+      background-color: #1976D2;
+    }
+    .emoji-container {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+    .emoji {
+      font-size: 2em;
+      position: absolute;
+      animation: fly 2s linear infinite;
+      color: green;
+    }
+    @keyframes fly {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(100vw, -100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h1>Desafio 3: Qual é o meu filme preferido?</h1>
+  </div>
+  <div class="container">
+    <div class="question">
+      <p>Clica na foto correta</p>
+    </div>
+    <div class="squares-container">
+      <div class="square" id="square1" onclick="checkAnswer(1)"><span>Shrek 3</span></div>
+      <div class="square1" id="square2" onclick="checkAnswer(2)"><span>Pulp Fiction</span></div>
+      <div class="square2" id="square3" onclick="checkAnswer(3)"><span>Interstellar</span></div>
+      <div class="square3" id="square4" onclick="checkAnswer(4)"><span>The dark knight</span></div>
+    </div>
+    <video id="fail-video" class="fail-video" controls>
+      <source src="falhadesafio3.mp4" type="video/mp4">
+      ERRO - IMPOSSIVEL TOCAR VIDEO
+    </video>
+    <a id="next-button" class="next-button" href="parabens.html">Parabéns. Conlcuir desafio.</a>
+  </div>
+  <script>
+    let video = document.getElementById('fail-video');
+    let nextButton = document.getElementById('next-button');
+    let squaresContainer = document.querySelector('.squares-container');
+    let questionText = document.querySelector('.question');
+    let emojiContainer = document.getElementById('emoji-container');
+
+    function checkAnswer(selectedSquare) {
+      if (selectedSquare === 3) {
+        // Se a resposta estiver correta, mostrar o botão de avançar
+        nextButton.style.display = 'inline-block';
+        // Esconder os quadrados e a pergunta
+        squaresContainer.style.display = 'none';
+        questionText.style.display = 'none';
+        // Esconder o vídeo de erro se o quadrado correto for clicado
+        video.style.display = 'none';
+        // Mostrar emojis de certo
+        emojiContainer.style.display = 'block';
+        for (let i = 0; i < 1000; i++) {
+          createEmoji();
+        }
+        setTimeout(() => {
+          emojiContainer.style.display = 'none';
+        }, 2000); // Duração do efeito dos emojis em milissegundos
+      } else {
+        // Se a resposta estiver errada, mostrar o vídeo de falha
+        video.style.display = 'block';
+        video.play();
+      }
+    }
+
+    // Ao terminar o vídeo, esconder o vídeo de falha
+    video.addEventListener('ended', function() {
+      video.style.display = 'none';
+    });
+
+    // Para reiniciar o vídeo caso o usuário clique errado novamente
+    video.addEventListener('play', function() {
+      video.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
