@@ -21,22 +21,10 @@
   </style>
 </head>
 <body>
-  <iframe id="youtube-video" allow="autoplay; fullscreen" 
-          src="https://www.youtube.com/embed/5cLYLsIOnBk?autoplay=1&controls=0&modestbranding=1&rel=0"></iframe>
-
   <script>
-    // Abrir o vídeo em modo fullscreen automaticamente
+    // Abrir diretamente o site do YouTube em fullscreen
     window.onload = () => {
-      const iframe = document.getElementById('youtube-video');
-      const requestFullScreen = 
-        document.documentElement.requestFullscreen || 
-        document.documentElement.mozRequestFullScreen || 
-        document.documentElement.webkitRequestFullscreen || 
-        document.documentElement.msRequestFullscreen;
-
-      if (requestFullScreen) {
-        requestFullScreen.call(document.documentElement);
-      }
+      window.location.href = "https://www.youtube.com/watch?v=5cLYLsIOnBk&autoplay=1";
     };
   </script>
 </body>
