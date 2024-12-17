@@ -174,24 +174,38 @@ body {
             <p>Clica na foto correta</p>
         </div>
         <div class="squares-container">
-            <div class="square" id="square1" onclick="checkAnswer(1)"><span>Peru Assado da Mãe</span></div>
-            <div class="square1" id="square2" onclick="checkAnswer(2)"><span>Cabidela da Avô</span></div>
-            <div class="square2" id="square3" onclick="checkAnswer(3)"><span>Qualquer Assado</span></div>
-            <div class="square3" id="square4" onclick="checkAnswer(4)"><span>Francesinha da Belga</span></div>
+            <div class="square" id="square1" onclick="checkAnswer(1)"><span>Peru Assado</span></div>
+            <div class="square1" id="square2" onclick="checkAnswer(2)"><span>Cabidela</span></div>
+            <div class="square2" id="square3" onclick="checkAnswer(3)"><span>Assado</span></div>
+            <div class="square3" id="square4" onclick="checkAnswer(4)"><span>Francesinha</span></div>
         </div>
         <video id="fail-video" class="fail-video" controls>
             <source src="fail1.mp4" type="video/mp4">
-            ERRO - IMPOSSIVEL TOCAR VIDEO
+            O seu navegador não suporta o elemento de vídeo.
         </video>
-        <a id="next-button" class="next-button" href="desafio2.html">Parabéns. Avança para o próximo desafio.</a>
+        <a id="next-button" class="next-button" href="desafio2.html">Parabéns. Primeira resposta correta!</a>
+        <div id="emoji-container" class="emoji-container"></div>
     </div>
 
     <script>
-let video = document.getElementById('fail-video');
+        let video = document.getElementById('fail-video');
 let nextButton = document.getElementById('next-button');
 let squaresContainer = document.querySelector('.squares-container');
 let questionText = document.querySelector('.question');
 let emojiContainer = document.getElementById('emoji-container');
+
+function createEmoji() {
+    const emoji = document.createElement('div');
+    emoji.classList.add('emoji');
+    emoji.innerHTML = '✔️';
+    emoji.style.left = `${Math.random() * 100}vw`;
+    emoji.style.top = `${Math.random() * 100}vh`;
+    emojiContainer.appendChild(emoji);
+
+    setTimeout(() => {
+        emojiContainer.removeChild(emoji);
+    }, 2000);
+}
 
 function checkAnswer(selectedSquare) {
     if (selectedSquare === 2) {
