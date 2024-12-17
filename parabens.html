@@ -13,39 +13,36 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            flex-direction: column;
         }
 
-        .container {
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        #videoContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #surprise {
-            display: none;
-        }
-
-        input[type="text"] {
+        #videoContainer video {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            height: 100%;
+            object-fit: cover;
         }
 
-        button {
-            padding: 10px 20px;
+        #revelarBtn {
+            display: none;
+            padding: 15px 30px;
+            font-size: 18px;
             background-color: #2196F3;
             color: white;
             border: none;
@@ -53,30 +50,36 @@
             cursor: pointer;
         }
 
-        button:hover {
+        #revelarBtn:hover {
             background-color: #1976D2;
         }
     </style>
     <script>
-        function mostrarSurpresa() {
-            document.getElementById("surprise").style.display = 'block';
+        document.addEventListener("DOMContentLoaded", function () {
+            var videoContainer = document.getElementById("videoContainer");
+            var videoElement = document.getElementById("parabensVideo");
+            var revelarBtn = document.getElementById("revelarBtn");
+
+            // Quando o vídeo terminar, esconda o vídeo e mostre o botão
+            videoElement.onended = function () {
+                videoContainer.style.display = "none"; // Esconde o vídeo
+                revelarBtn.style.display = "block"; // Mostra o botão
+            };
+        });
+
+        function revelarSurpresa() {
+            // Redireciona para a página final.html
+            window.location.href = "final.html";
         }
     </script>
 </head>
 <body>
-    <div class="container">
-        <video id="parabens-video" controls autoplay>
-            <source src="parabens.mp4" type="video/mp4">
-            Impossivel reproduzir video.
-        </video>
-        <div id="surprise">
-            <input type="text" id="campoSurpresa" placeholder="Digite algo">
-            <button onclick="alert('Surpresa!')">Clica para uma surpresa</button>
-        </div>
+    <!-- Video container for full screen -->
+    <div id="videoContainer">
+        <video id="parabensVideo" src="parabens.mp4" autoplay controls></video>
     </div>
 
-    <script>
-        document.getElementById('parabens-video').addEventListener('ended', mostrarSurpresa);
-    </script>
+    <!-- Button to reveal the surprise -->
+    <button id="revelarBtn" onclick="revelarSurpresa()">Parabéns. O código é 783. Clica após abrir a prenda para revelar a surpresa</button>
 </body>
 </html>
