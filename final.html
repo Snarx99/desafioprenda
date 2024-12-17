@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Final</title>
+  <title>Vídeo YouTube Fullscreen</title>
   <style>
     body {
       margin: 0;
@@ -13,16 +13,26 @@
       height: 100vh;
       background-color: #000;
     }
-    video {
-      max-width: 100%;
-      max-height: 100%;
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <video autoplay controls>
-    <source src="final.mp4" type="video/mp4">
-    O seu navegador não suporta a reprodução deste vídeo.
-  </video>
+  <iframe id="youtube-video" allow="autoplay; fullscreen" 
+          src="https://www.youtube.com/embed/5cLYLsIOnBk?autoplay=1&controls=0&modestbranding=1&rel=0"></iframe>
+
+  <script>
+    // Abrir o vídeo em modo fullscreen automaticamente
+    window.onload = () => {
+      const iframe = document.getElementById('youtube-video');
+      const requestFullScreen = iframe.requestFullscreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
+      if (requestFullScreen) {
+        requestFullScreen.call(iframe);
+      }
+    };
+  </script>
 </body>
 </html>
