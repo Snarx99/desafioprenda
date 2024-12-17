@@ -22,16 +22,24 @@
 </head>
 <body>
   <iframe id="youtube-video" allow="autoplay; fullscreen" 
-          src="https://www.youtube.com/embed/5cLYLsIOnBk?autoplay=1&controls=0&modestbranding=1&rel=0"></iframe>
+          src="https://www.youtube.com/embed/ID_DO_VIDEO?autoplay=1&controls=0&modestbranding=1&rel=0"></iframe>
 
   <script>
-    // Abrir o vídeo em modo fullscreen automaticamente
+    // Garantir fullscreen no dispositivo inteiro
     window.onload = () => {
       const iframe = document.getElementById('youtube-video');
-      const requestFullScreen = iframe.requestFullscreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
-      if (requestFullScreen) {
-        requestFullScreen.call(iframe);
-      }
+      const enterFullscreen = () => {
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+          iframe.msRequestFullscreen();
+        }
+      };
+      enterFullscreen();
     };
   </script>
 </body>
