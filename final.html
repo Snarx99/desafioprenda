@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Final do desafio</title>
+  <title>Vídeo YouTube Fullscreen</title>
   <style>
     body {
       margin: 0;
@@ -28,9 +28,14 @@
     // Abrir o vídeo em modo fullscreen automaticamente
     window.onload = () => {
       const iframe = document.getElementById('youtube-video');
-      const requestFullScreen = iframe.requestFullscreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
+      const requestFullScreen = 
+        document.documentElement.requestFullscreen || 
+        document.documentElement.mozRequestFullScreen || 
+        document.documentElement.webkitRequestFullscreen || 
+        document.documentElement.msRequestFullscreen;
+
       if (requestFullScreen) {
-        requestFullScreen.call(iframe);
+        requestFullScreen.call(document.documentElement);
       }
     };
   </script>
