@@ -104,10 +104,21 @@
       border-radius: 5px;
       font-size: 1em;
     }
-    .fail-video {
+    .gif-container {
       display: none;
-      margin-top: 20px;
-      max-width: 100%;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+    }
+    .gif-container img {
+      max-width: 90%;
+      max-height: 90%;
     }
     .next-button {
       display: none;
@@ -122,28 +133,22 @@
     .next-button:hover {
       background-color: #1976D2;
     }
-    .emoji-container {
+    .alert-container {
       display: none;
-      position: absolute;
-      width: 100%;
-      height: 100%;
+      position: fixed;
       top: 0;
       left: 0;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
     }
-    .emoji {
-      font-size: 2em;
-      position: absolute;
-      animation: fly 2s linear infinite;
-      color: green;
-    }
-    @keyframes fly {
-      0% {
-        transform: translate(0, 0);
-      }
-      100% {
-        transform: translate(100vw, -100vh);
-      }
+    .alert-container span {
+      font-size: 3em;
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -161,52 +166,39 @@
       <div class="square2" id="square3" onclick="checkAnswer(3)"><span>Interstellar</span></div>
       <div class="square3" id="square4" onclick="checkAnswer(4)"><span>The dark knight</span></div>
     </div>
-    <video id="fail-video" class="fail-video" controls>
-      <source src="fail1.mp4" type="video/mp4">
-      ERRO - IMPOSSIVEL TOCAR VIDEO
-    </video>
-    <a id="next-button" class="next-button" href="parabens.html">Parabéns. Próximo desafio.</a>
+    <div class="gif-container" id="gif-container">
+      <img src="https://media1.tenor.com/m/_hUq1BSUsiMAAAAd/cat-cute.gif" alt="GIF">
+    </div>
+    <div class="alert-container" id="alert-container">
+      <span>Resposta Errada!</span>
+    </div>
+    <a id="next-button" class="next-button" href="parabens.html">Parabéns!!</a>
   </div>
   <script>
-    let video = document.getElementById('fail-video');
-    let nextButton = document.getElementById('next-button');
-    let squaresContainer = document.querySelector('.squares-container');
-    let questionText = document.querySelector('.question');
-    let emojiContainer = document.getElementById('emoji-container');
+    const gifContainer = document.getElementById('gif-container');
+    const nextButton = document.getElementById('next-button');
+    const squaresContainer = document.querySelector('.squares-container');
+    const questionText = document.querySelector('.question');
+    const alertContainer = document.getElementById('alert-container');
 
     function checkAnswer(selectedSquare) {
       if (selectedSquare === 3) {
-        // Se a resposta estiver correta, mostrar o botão de avançar
-        nextButton.style.display = 'inline-block';
         // Esconder os quadrados e a pergunta
         squaresContainer.style.display = 'none';
         questionText.style.display = 'none';
-        // Esconder o vídeo de erro se o quadrado correto for clicado
-        video.style.display = 'none';
-        // Mostrar emojis de certo
-        emojiContainer.style.display = 'block';
-        for (let i = 0; i < 1000; i++) {
-          createEmoji();
-        }
+        // Mostrar o GIF
+        gifContainer.style.display = 'flex';
         setTimeout(() => {
-          emojiContainer.style.display = 'none';
-        }, 2000); // Duração do efeito dos emojis em milissegundos
+          gifContainer.style.display = 'none';
+          nextButton.style.display = 'inline-block';
+        }, 3000); // Exibir o GIF por 3 segundos
       } else {
-        // Se a resposta estiver errada, mostrar o vídeo de falha
-        video.style.display = 'block';
-        video.play();
+        alertContainer.style.display = 'flex';
+        setTimeout(() => {
+          alertContainer.style.display = 'none';
+        }, 2000); // Exibir a mensagem por 2 segundos
       }
     }
-
-    // Ao terminar o vídeo, esconder o vídeo de falha
-    video.addEventListener('ended', function() {
-      video.style.display = 'none';
-    });
-
-    // Para reiniciar o vídeo caso o usuário clique errado novamente
-    video.addEventListener('play', function() {
-      video.style.display = 'block';
-    });
   </script>
 </body>
 </html>

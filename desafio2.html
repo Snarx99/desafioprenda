@@ -30,16 +30,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-		    .banner {
-      width: 100%;
-      background-color: #2196F3;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      top: 0;
-      left: 0;
-    }
+        .banner {
+            width: 100%;
+            background-color: #2196F3;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
 
         input[type="text"] {
             width: 100%;
@@ -62,7 +62,7 @@
             background-color: #1976D2;
         }
 
-        #failVideo {
+        #failVideo, #successVideo {
             display: none;
             position: fixed;
             top: 50%;
@@ -74,7 +74,7 @@
             border-radius: 10px;
         }
 
-        #failVideo video {
+        #failVideo video, #successVideo video {
             max-width: 100%;
             border-radius: 10px;
         }
@@ -83,23 +83,33 @@
         function validarTexto() {
             var texto = document.getElementById("campoTexto").value;
 
-            // Case-sensitive check for "Madeira" or "madeira"
             if (texto === "Madeira" || texto === "madeira") {
-                window.location.href = "desafio3.html";
+                tocarVideoSucesso();
             } else {
                 tocarVideoFalha();
             }
+        }
+
+        function tocarVideoSucesso() {
+            var videoContainer = document.getElementById("successVideo");
+            var videoElement = document.getElementById("successVideoElement");
+
+            videoContainer.style.display = "block";
+            videoElement.play();
+
+            videoElement.onended = function () {
+                videoContainer.style.display = "none";
+                window.location.href = "desafio3.html"; // Redirecionar após o vídeo
+            };
         }
 
         function tocarVideoFalha() {
             var videoContainer = document.getElementById("failVideo");
             var videoElement = document.getElementById("failVideoElement");
 
-            // Display the video and play it
             videoContainer.style.display = "block";
             videoElement.play();
 
-            // Wait for the video to end to reset the interface
             videoElement.onended = function () {
                 videoContainer.style.display = "none";
                 document.getElementById("campoTexto").value = ""; // Reset input
@@ -109,17 +119,22 @@
 </head>
 <body>
 <div class="banner">
-    <h1>Desafio 2: Qual é a minha viagem preferida?</h1>
-  </div>
-    <div class="container">
-        <h2>Introduz no campo a minha viagem preferida - Cuidado com o capslock (tudo em minuscula).</h2>
-        <input type="text" id="campoTexto">
-        <button onclick="validarTexto()">Confirmar</button>
-    </div>
+    <h1>Desafio 2: Até agora, qual foi a minha viagem preferida?</h1>
+</div>
+<div class="container">
+    <h2>Introduz no campo a minha viagem preferida - Cuidado com o capslock (tudo em minuscula).</h2>
+    <input type="text" id="campoTexto">
+    <button onclick="validarTexto()">Confirmar</button>
+</div>
 
-    <!-- Video container for failure -->
-    <div id="failVideo">
-        <video id="failVideoElement" src="fail.mp4" controls></video>
-    </div>
+<!-- Video container for failure -->
+<div id="failVideo">
+    <video id="failVideoElement" src="fail.mp4" controls></video>
+</div>
+
+<!-- Video container for success -->
+<div id="successVideo">
+    <video id="successVideoElement" src="certo.mp4" controls></video>
+</div>
 </body>
 </html>
